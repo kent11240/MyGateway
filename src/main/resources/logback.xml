@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<configuration>
+	<appender name="dFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>
+				/Users/admin/MyGateway/logs/%d{yyyyMMdd, aux}/MyGateway-%d{yyyyMMdd-HH}_%i.log
+			</fileNamePattern>
+			<maxFileSize>10MB</maxFileSize>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>
+				[%d{yy/MM/dd HH:mm:ss}][%p][%C-%L][%X{trackId}] %m%n
+			</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="dWkFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>
+				/Users/admin/MyGateway/logs/%d{yyyyMMdd, aux}/WkData-%d{yyyyMMdd-HH}_%i.log
+			</fileNamePattern>
+			<maxFileSize>10MB</maxFileSize>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>
+				[%d{yy/MM/dd HH:mm:ss}][%p][%X{trackId}] %m%n
+			</pattern>
+		</encoder>
+	</appender>
+	
+	<logger name="wkData" level="INFO" additivity="false">
+		<appender-ref ref="dWkFile" />
+	</logger>
+	
+    <root level="INFO">
+        <appender-ref ref="dFile"/>
+    </root>
+</configuration>
