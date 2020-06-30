@@ -18,21 +18,16 @@ import com.mgw.service.AccountService;
 
 @RestController
 @RequestMapping(value="/WK0002")
-public class WK0002Controller {
-	
-	private BaseResponse rs = new BaseResponse();
-	private WK0002Response wkBody = new WK0002Response();
-	
-	{
-		rs.setWorkCode("0002");
-		rs.setWkBody(wkBody);
-	}
+public class WK0002Controller extends BaseController {
+	private static final String wkCode = "0002";
 	
 	@Autowired
     private AccountService accountService;
 	
 	@PostMapping("/getAcnt")
 	public BaseResponse getAcnt(@RequestBody WK0002Request rq) {
+		WK0002Response wkBody = new WK0002Response();
+		
 		List<Account> dbList = accountService.findAccountByCustId(rq.getCustId());
 		
 		List<WK0002Account> acntList = new ArrayList<WK0002Account>();
@@ -46,11 +41,14 @@ public class WK0002Controller {
 		}
 		
 		wkBody.setAcntList(acntList);
-		return rs;
+		
+		return genBaseRs(wkCode, wkBody);
 	}
 	
 	@PostMapping("/getAcntById")
 	public BaseResponse getAcntById(@RequestBody WK0002Request rq) {
+		WK0002Response wkBody = new WK0002Response();
+		
 		Account dbAcnt = accountService.findAccountById(rq.getId());
 
 		WK0002Account acnt = new WK0002Account();
@@ -60,6 +58,7 @@ public class WK0002Controller {
 		acnt.setAcntKind(dbAcnt.getAcntKind());
 		
 		wkBody.setAcnt(acnt);
-		return rs;
+		
+		return genBaseRs(wkCode, wkBody);
 	}
 }

@@ -21,26 +21,22 @@ import com.mgw.service.I18NService;
 
 @RestController
 @RequestMapping(value="/WK0001")
-public class WK0001Controller {
+public class WK0001Controller extends BaseController {
 	private static final Logger log = LoggerFactory.getLogger(WK0001Controller.class);
-
-	private BaseResponse rs = new BaseResponse();
-	private WK0001Response wkBody = new WK0001Response();
-	
-	{
-		rs.setWorkCode("0001");
-		rs.setWkBody(wkBody);
-	}
+	private static final String wkCode = "0001";
 	
 	@Autowired
     private I18NService i18NService;
 	
 	@PostMapping("/sayHello")
 	public BaseResponse sayHello(@RequestBody @Valid WK0001Request rq) {
+		WK0001Response wkBody = new WK0001Response();
+		
 		String[] args = {rq.getName(), Integer.toString(rq.getAge())};
 		String msg = i18NService.fetchMsg("GATEWAY.WK0001.HELLOMSG", args);
 		wkBody.setHelloMsg(msg);
-		return rs;
+		
+		return genBaseRs(wkCode, wkBody);
 	}
 	
 	@PostMapping("/throwNull")
@@ -55,21 +51,27 @@ public class WK0001Controller {
 	
 	@PostMapping("/printLog")
 	public BaseResponse printLog(@RequestBody WK0001Request rq) {
+		WK0001Response wkBody = new WK0001Response();
+		
 		log.info("print a lot of log........!@#$^$%&^&(&(@$^#%#&^$%%#1");
 		log.info("print a lot of log........!@#$^$%&^&(&(@$^#%#&^$%%#2");
 		log.info("print a lot of log........!@#$^$%&^&(&(@$^#%#&^$%%#3");
 		log.info("print a lot of log........!@#$^$%&^&(&(@$^#%#&^$%%#4");
 		log.info("print a lot of log........!@#$^$%&^&(&(@$^#%#&^$%%#5");
-		return rs;
+		
+		return genBaseRs(wkCode, wkBody);
 	}
 	
 	@PostMapping("/fetchPerson")
 	public BaseResponse fetchPerson(@RequestBody @Valid WK0001Request rq) {
+		WK0001Response wkBody = new WK0001Response();
+		
 		List<WK0001PersonInfo> list = new ArrayList<WK0001PersonInfo>();
 		genPersonInfo(list, i18NService.fetchMsg("LBL.WK0001.NAME"), "name", rq.getName());
 		genPersonInfo(list, i18NService.fetchMsg("LBL.WK0001.AGE"), "age", Integer.toString(rq.getAge()));
 		wkBody.setPersonInfo(list);
-		return rs;
+		
+		return genBaseRs(wkCode, wkBody);
 	}
 	
 	private void genPersonInfo(List<WK0001PersonInfo> list, String label, String key, String value) {
