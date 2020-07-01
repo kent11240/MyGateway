@@ -155,7 +155,7 @@ public class HTTPUtility {
 		log.info("request header:");
 		if (header != null) {
 			for (Map.Entry<String, String> entry : header.entrySet()) {
-				log.info(String.format("[%s] = [%s]", entry.getKey(), entry.getValue()));
+				log.info(String.format("%s:[%s]", entry.getKey(), entry.getValue()));
 				conn.setRequestProperty(entry.getKey(), entry.getValue());
 			}
 		}

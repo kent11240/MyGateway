@@ -15,6 +15,7 @@ import com.mgw.model.BaseResponse;
 import com.mgw.model.wkBean.WK0003Request;
 import com.mgw.model.wkBean.WK0003Response;
 import com.mgw.util.HTTPUtility;
+import com.mgw.util.StringUtility;
 
 @RestController
 @RequestMapping(value = "/WK0003")
@@ -65,9 +66,11 @@ public class WK0003Controller extends BaseController {
 
 		String urlStr = env.getProperty("url.json.users");
 		
-		Map<String, Object> params = new LinkedHashMap<String, Object>();
-		params.put("id", rq.getId());
-		urlStr += "?" + HTTPUtility.genParamsData(params);
+		if (!StringUtility.isNullOrEmpty(rq.getId())) {
+			Map<String, Object> params = new LinkedHashMap<String, Object>();
+			params.put("id", rq.getId());
+			urlStr += "?" + HTTPUtility.genParamsData(params);
+		}
 		
 		String responseBody = HTTPUtility.doHTTPRequest(HTTPUtility.METHOD_GET, urlStr, null, null);
 		wkBody.setResult(responseBody);
