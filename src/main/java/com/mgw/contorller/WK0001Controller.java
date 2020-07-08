@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mgw.constant.ReturnCodes;
 import com.mgw.model.BaseResponse;
 import com.mgw.model.wkBean.WK0001PersonInfo;
 import com.mgw.model.wkBean.WK0001Request;
@@ -80,5 +81,17 @@ public class WK0001Controller extends BaseController {
 		personInfo.setKey(key);
 		personInfo.setValue(value);
 		list.add(personInfo);
+	}
+	
+	@PostMapping("/returnAnError")
+	public BaseResponse returnAnError(@RequestBody @Valid WK0001Request rq) {
+		WK0001Response wkBody = new WK0001Response();
+		
+		boolean error = true;
+		if (error) {
+			return genBaseRs(wkCode, wkBody, ReturnCodes.ERROR, i18NService.fetchMsg("GATEWAY.WK0001.ERRORMSG"));
+		}
+		
+		return genBaseRs(wkCode, wkBody);
 	}
 }

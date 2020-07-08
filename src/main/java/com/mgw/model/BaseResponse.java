@@ -1,6 +1,5 @@
 package com.mgw.model;
 
-import com.mgw.constant.ReturnCodes;
 import com.mgw.model.wkBean.BaseWKBody;
 
 import lombok.Getter;
@@ -11,10 +10,10 @@ public class BaseResponse {
 	private String workCode;
 	
 	@Getter @Setter
-	private String rtnCode = ReturnCodes.SUCCESS;
+	private String rtnCode;
 	
 	@Getter @Setter
-	private String rtnMsg = "";
+	private String rtnMsg;
 	
 	@Getter @Setter
 	private BaseWKBody wkBody;

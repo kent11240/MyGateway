@@ -32,10 +32,10 @@ public class HTTPUtility {
 	private static final String DEFAULT_ENCODING = "UTF-8";
 	
 	public static String doHTTPRequest (int method, String urlStr, HashMap<String, String> header, String requestBody) {
-		return doHTTPRequest(method, urlStr, DEFAULT_ENCODING, header, requestBody);
+		return doHTTPRequest(method, urlStr, DEFAULT_ENCODING, header, requestBody, 10000);
 	}
 	
-	public static String doHTTPRequest (int method, String urlStr, String encoding, HashMap<String, String> header, String requestBody) {
+	public static String doHTTPRequest (int method, String urlStr, String encoding, HashMap<String, String> header, String requestBody, int timeout) {
 		OutputStream os = null;
 		BufferedReader in = null;
 		String responseBody = null;
@@ -85,8 +85,8 @@ public class HTTPUtility {
 			
 			httpConn.setRequestMethod(methodStr);
 			httpConn.setUseCaches(false);
-			httpConn.setConnectTimeout(10000);
-			httpConn.setReadTimeout(10000);
+			httpConn.setConnectTimeout(timeout);
+			httpConn.setReadTimeout(timeout);
 			
 			if (!StringUtility.isNullOrEmpty(requestBody)) {
 				httpConn.setDoOutput(true);
@@ -132,11 +132,7 @@ public class HTTPUtility {
 	}
 	
 	private static boolean checkIsSSL(String url) {
-		if (url.startsWith("https")) {
-			return true;
-		} else {
-			return false;
-		}
+		return url.startsWith("https");
 	}
 
 	private static String fetchHTTPMethod(int method) {
