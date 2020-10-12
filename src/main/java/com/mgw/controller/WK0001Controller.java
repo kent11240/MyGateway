@@ -1,4 +1,4 @@
-package com.mgw.contorller;
+package com.mgw.controller;
 
 import java.util.ArrayList;
 import java.util.List;

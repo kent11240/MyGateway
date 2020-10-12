@@ -1,4 +1,4 @@
-package com.mgw.contorller;
+package com.mgw.controller;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;

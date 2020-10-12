@@ -1,4 +1,4 @@
-package com.mgw.contorller;
+package com.mgw.controller;
 
 import com.mgw.constant.ReturnCodes;
 import com.mgw.model.BaseResponse;
