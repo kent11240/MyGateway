@@ -9,55 +9,62 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CaculatorTest {
-	
-	private static Calculator cal;
-	private int num1;
-	private int num2;
-	
+
 	@BeforeAll
 	public static void init() {
 		System.out.println("BeforeAll");
-		cal = new Calculator();
 	}
 	
 	@BeforeEach
-	public void rndNum() {
+	public void caseStart() {
 		System.out.println("BeforeEach");
-		num1 = (int) (Math.random() * 100);
-		num2 = (int) (Math.random() * 100);
 	}
 	
 	@Test
-	public void addTest() {
-		System.out.println("addTest");
+	public void testAdd() {
+		System.out.println("testAdd");
 		
-		int result = cal.add(num1, num2);
+		Calculator calculator = new Calculator();
+		int num1 = 5;
+		int num2 = 2;
+		int expected = 7;
 		
-		assertThat(result).isEqualTo(num1 + num2);
+		int result = calculator.add(num1, num2);
+		
+		assertThat(result).isEqualTo(expected);
 	}
 	
 	@Test
-	public void multiplyTest() {
-		System.out.println("multiplyTest");
+	public void testMultiply() {
+		System.out.println("testMultiply");
 		
-		int result = cal.multiply(num1, num2);
+		Calculator calculator = new Calculator();
+		int num1 = 5;
+		int num2 = 2;
+		int expected = 10;
 		
-		assertThat(result).isEqualTo(num1 * num2);
+		int result = calculator.multiply(num1, num2);
+		
+		assertThat(result).isEqualTo(expected);
 	}
 	
 	@Test
-	public void divideTest() {
-		System.out.println("divideTest");
+	public void testDivide() {
+		System.out.println("testDivide");
 		
-		int result = cal.divide(num1, num2);
+		Calculator calculator = new Calculator();
+		int num1 = 8;
+		int num2 = 2;
+		int expected = 4;
 		
-		assertThat(result).isEqualTo(num1 / num2);
+		int result = calculator.divide(num1, num2);
+		
+		assertThat(result).isEqualTo(expected);
 	}
 	
 	@AfterEach
 	public void caseEnd() {
 		System.out.println("AfterEach");
-		System.out.println(String.format("num1:%d, num2:%d", num1, num2));
 	}
 	
 	@AfterAll
